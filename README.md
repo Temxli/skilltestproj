@@ -1,9 +1,12 @@
 localhost:3000/orders post
+```
 {
   "items": [
     { "product_id": 1 }  ]
 }
+```
 localhost:3000/orders getall
+```
 [
     {
         "ID": 3,
@@ -24,7 +27,7 @@ localhost:3000/orders getall
         "items": null
     }
     ]
-
+```
 
 # skilltestproj
 localhost:3000/login POST
