@@ -35,7 +35,7 @@ func main() {
 	// Group for authenticated routes
 
 	auth := r.Group("/")
-	auth.Use(middleware.RequireAuth)
+	auth.Use()
 	{
 		auth.POST("/products", routes.ProxyProductService)
 		auth.DELETE("/products/:id", routes.ProxyProductService)
