@@ -28,7 +28,7 @@ func main() {
 	// Public routes
 	r.POST("/login", routes.ProxyAuthService)
 	r.POST("/signup", routes.ProxyAuthService)
-	r.GET("/product/:id", routes.ProxyProductService)
+	r.GET("/products/:id", routes.ProxyProductService)
 	r.GET("/products", routes.ProxyProductService)
 	r.GET("/categories", routes.ProxyProductService)
 
@@ -40,10 +40,10 @@ func main() {
 		auth.POST("/products", routes.ProxyProductService)
 		auth.DELETE("/products/:id", routes.ProxyProductService)
 
-		auth.POST("/order", routes.ProxyOrderService)
-		auth.GET("/order", routes.ProxyOrderService)
-		auth.PUT("/order/:id", routes.ProxyOrderService)
-		auth.DELETE("/order/:id", routes.ProxyOrderService)
+		auth.POST("/orders", routes.ProxyOrderService)
+		auth.GET("/orders", routes.ProxyOrderService)
+		auth.PUT("/orders/:id", routes.ProxyOrderService)
+		auth.DELETE("/orders/:id", routes.ProxyOrderService)
 
 		auth.POST("/logout", routes.ProxyAuthService)
 

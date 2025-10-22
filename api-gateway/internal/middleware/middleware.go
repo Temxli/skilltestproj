@@ -110,7 +110,7 @@ func CORSMiddleware() gin.HandlerFunc {
 			"http://95.58.11.252:5173":   true,
 			"http://46.235.84.212:5173":  true,
 			"http://176.98.232.130:5173": true,
-			"http://localhost:5173":      true,
+			"http://localhost:3001":      true,
 		}
 
 		if allowedOrigins[origin] {
