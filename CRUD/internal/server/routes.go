@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"CRUD/internal/handlers"
-	"CRUD/internal/middleware"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -21,7 +20,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 	}))
 
 	r.GET("/products/:id", handlers.GetProduct)
-	r.GET("/products", middleware.RequireAuth, handlers.GetProducts)
+	r.GET("/products", handlers.GetProducts)
 	r.POST("/products", handlers.CreateProduct)
 	r.PUT("/products/:id", handlers.UpdateProduct)
 	r.DELETE("/products/:id", handlers.DeleteProduct)
