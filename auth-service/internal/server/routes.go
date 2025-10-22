@@ -2,7 +2,6 @@ package server
 
 import (
 	"auth-service/internal/handlers"
-	"auth-service/internal/middleware"
 	"net/http"
 
 	"github.com/gin-contrib/cors"
@@ -13,24 +12,25 @@ func (s *Server) RegisterRoutes() http.Handler {
 	r := gin.Default()
 
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:5173"}, // Add your frontend URL
+		AllowOrigins:     []string{"*"}, // Add your frontend URL
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},
 		AllowHeaders:     []string{"Accept", "Authorization", "Content-Type"},
 		AllowCredentials: true, // Enable cookies/auth
 	}))
 
 	r.POST("/login", handlers.Login)
-	r.POST("/register", handlers.CreateUser)
+	r.POST("/signup", handlers.CreateUser)
 	// User routes
 	userGroup := r.Group("/users")
 	{
-		userGroup.GET("/", middleware.RequireAuth, handlers.GetUsers)
-		userGroup.GET("/:id", middleware.RequireAuth, handlers.GetUserByID)
-		userGroup.PUT("/:id", middleware.RequireAuth, handlers.UpdateUser)
-		userGroup.DELETE("/:id", middleware.RequireAuth, handlers.DeleteUser)
-		userGroup.POST("/logout", middleware.RequireAuth, handlers.Logout)
-		userGroup.PATCH("/:id/password", middleware.RequireAuth, handlers.ChangePassword)
-		userGroup.GET("/me", middleware.RequireAuth, handlers.GetMyInfo)
+		userGroup.POST("/", handlers.CreateUser)
+		userGroup.GET("/", handlers.GetUsers)
+		userGroup.GET("/:id", handlers.GetUserByID)
+		userGroup.PUT("/:id", handlers.UpdateUser)
+		userGroup.DELETE("/:id", handlers.DeleteUser)
+		userGroup.POST("/logout", handlers.Logout)
+		userGroup.PATCH("/:id/password", handlers.ChangePassword)
+		userGroup.GET("/me", handlers.GetMyInfo)
 	}
 
 	return r
