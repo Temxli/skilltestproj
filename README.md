@@ -1,4 +1,29 @@
-
+localhost:3000/orders post
+{
+  "items": [
+    { "product_id": 1 }  ]
+}
+localhost:3000/orders getall
+[
+    {
+        "ID": 3,
+        "CreatedAt": "2025-10-21T12:03:32.149585+05:00",
+        "UpdatedAt": "2025-10-21T12:03:32.149585+05:00",
+        "DeletedAt": null,
+        "order_id": "ord-1761030212131561000",
+        "customer_id": 1,
+        "items": null
+    },
+    {
+        "ID": 4,
+        "CreatedAt": "2025-10-21T12:05:06.270914+05:00",
+        "UpdatedAt": "2025-10-21T12:05:06.270914+05:00",
+        "DeletedAt": null,
+        "order_id": "ord-1761030306256419600",
+        "customer_id": 1,
+        "items": null
+    }
+    ]
 
 
 # skilltestproj
