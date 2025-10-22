@@ -31,7 +31,7 @@ func main() {
 	r.GET("/products/:id", routes.ProxyProductService)
 	r.GET("/products", routes.ProxyProductService)
 	r.GET("/categories", routes.ProxyProductService)
-	auth.POST("/orders", routes.ProxyOrderService)
+	r.POST("/orders", routes.ProxyOrderService)
 
 	// Group for authenticated routes
 
@@ -54,4 +54,5 @@ func main() {
 
 	r.Run(":3000")
 }
+
 
