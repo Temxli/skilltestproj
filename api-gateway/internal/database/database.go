@@ -10,11 +10,10 @@ import (
 	"gorm.io/gorm"
 )
 
-// ...existing code...
 var DB *gorm.DB
 
 func DBConnect() error {
-	// load local .env if present
+	// load local .env 
 	_ = godotenv.Load()
 
 	dsn := strings.TrimSpace(os.Getenv("DATABASE_URL"))
@@ -55,4 +54,3 @@ func trim(s string) string {
 	return strings.TrimSpace(s)
 }
 
-// ...existing code...
