@@ -20,7 +20,6 @@ func CreateProduct(c *gin.Context) {
 		return
 	}
 
-	// reload with category
 	if err := database.DB.Preload("Category").First(&p, p.ID).Error; err == nil {
 		c.JSON(http.StatusCreated, p)
 		return

@@ -14,6 +14,7 @@ import (
 )
 
 func GetUsers(c *gin.Context) {
+	// get users
 	var users []models.User
 	result := database.DB.Find(&users)
 	if result.Error != nil {
@@ -24,6 +25,7 @@ func GetUsers(c *gin.Context) {
 }
 
 func CreateUser(c *gin.Context) {
+	// get user from body
 	var user models.User
 	if err := c.ShouldBindJSON(&user); err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
@@ -33,17 +35,15 @@ func CreateUser(c *gin.Context) {
 		c.JSON(400, gin.H{"error": "password required"})
 		return
 	}
-
-	// hash the password before saving
+	// hash password
 	hashed, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
 		c.JSON(500, gin.H{"error": "failed to hash password"})
 		return
 	}
 	user.Password = string(hashed)
-
+	// save user
 	result := database.DB.Create(&user)
-
 	if result.Error != nil {
 		c.JSON(500, gin.H{"error": result.Error.Error()})
 		return
@@ -53,18 +53,19 @@ func CreateUser(c *gin.Context) {
 }
 
 func Login(c *gin.Context) {
+	// get login request
 	var req models.LoginRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
+	// find user
 	var user models.User
 	if err := database.DB.Where("name = ?", req.Name).First(&user).Error; err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid credentials"})
 		return
 	}
-
+	// check password
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.Password)); err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid credentials"})
 		return
@@ -89,12 +90,11 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	// set cookie (HttpOnly). set Secure=true in production.
 	secure := os.Getenv("ENV") == "production"
 	maxAge := int(time.Until(expiration).Seconds())
 	c.SetCookie("Authorization", signed, maxAge, "/", "", secure, true)
 
-	// don't return password hash
+	// dont return password hash
 	user.Password = ""
 	c.JSON(http.StatusOK, gin.H{"user": user})
 }
@@ -211,7 +211,6 @@ func GetMyInfo(c *gin.Context) {
 		return
 	}
 
-	// remove password before returning
 	user.Password = ""
 	c.JSON(http.StatusOK, user)
 }

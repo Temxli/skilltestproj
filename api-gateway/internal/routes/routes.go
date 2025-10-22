@@ -43,7 +43,7 @@ func forwardRequest(c *gin.Context, serviceURL string) {
 	}
 	defer resp.Body.Close()
 
-	// Копируем все заголовки кроме CORS
+	// CORS
 	for key, values := range resp.Header {
 		if key == "Access-Control-Allow-Origin" ||
 			key == "Access-Control-Allow-Credentials" ||

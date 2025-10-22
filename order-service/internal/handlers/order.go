@@ -14,7 +14,6 @@ import (
 	"gorm.io/gorm"
 )
 
-// fetchProduct делает HTTP GET к product-service и возвращает имя/цену
 func fetchProduct(productID uint) (*struct {
 	ID    uint    `json:"id"`
 	Name  string  `json:"name"`
@@ -66,7 +65,6 @@ func CreateOrderHandler(c *gin.Context) {
 		o.OrderID = fmt.Sprintf("ord-%d", time.Now().UnixNano())
 	}
 
-	// validate items and fill unit prices from product-service
 	for i := range o.Items {
 		if o.Items[i].ProductID == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("items[%d].product_id is required", i)})
@@ -85,12 +83,10 @@ func CreateOrderHandler(c *gin.Context) {
 	}
 
 	if err := database.DB.Transaction(func(tx *gorm.DB) error {
-		// не создавать ассоциации автоматически	
 		if err := tx.Omit("Items").Create(&o).Error; err != nil {
 			return err
 		}
 		if len(o.Items) > 0 {
-			// на всякий случай обнулим ID, чтобы БД проставила auto-increment
 			for i := range o.Items {
 				o.Items[i].ID = 0
 			}
