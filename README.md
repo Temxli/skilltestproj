@@ -1,4 +1,23 @@
+
+
+
 # skilltestproj
+localhost:3000/login POST
+``` 
+{
+    "name":"Tem3",
+    "password":"123456"
+}
+```
+
+localhost:3000/signup post
+```
+{
+    "name":"Tem4",
+    "password":"123456"
+}
+```
+das
 ```
 localhost:3000/products or localhost:8080/products GET
     {
