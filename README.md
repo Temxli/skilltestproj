@@ -80,7 +80,6 @@ localhost:3000/categories or localhost:8080/categories post
 
 localhost:3000/categories or localhost:8080/categories
 ```
-[
     {
         "ID": 1,
         "CreatedAt": "2025-10-21T12:26:58.011084+05:00",
@@ -95,5 +94,5 @@ localhost:3000/categories or localhost:8080/categories
         "DeletedAt": null,
         "name": "newcategory"
     }
-]
+
 ```
